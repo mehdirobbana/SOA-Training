@@ -56,4 +56,21 @@ public class ModuleBusRestApi {
         }
         return Response.ok(m).build();
     }
+    @PUT
+    @Path("{matricule}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateModule(@PathParam("matricule") String matricule, Module module) {
+        if (module == null) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Module is missing")
+                    .build();
+        }
+        if (moduleBusiness.updateModule(matricule, module)) {
+            return Response.ok(module).build();   // 200
+        }
+        return Response.status(Response.Status.NOT_FOUND)
+                .entity("Module or UniteEnseignement not found")
+                .build();
+    }
 }
