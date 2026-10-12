@@ -73,4 +73,15 @@ public class ModuleBusRestApi {
                 .entity("Module or UniteEnseignement not found")
                 .build();
     }
+    @DELETE
+    @Path("{matricule}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteModule(@PathParam("matricule") String matricule) {
+        if (moduleBusiness.deleteModule(matricule)) {
+            return Response.noContent().build();   // 204
+        }
+        return Response.status(Response.Status.NOT_FOUND)
+                .entity("Module not found")
+                .build();
+    }
 }
