@@ -1,4 +1,4 @@
-
+package webservices;
 // Import the necessary JAX-RS (Java API for RESTful Web Services) annotations and classes
 import javax.ws.rs.GET;               // Annotation to indicate that a method responds to an HTTP GET request
 import javax.ws.rs.Path;              // Annotation to define the URL path of a resource
