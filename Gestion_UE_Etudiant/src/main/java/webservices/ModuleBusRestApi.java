@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("modules")
-public class ModuleBusReestApi  {
+public class ModuleBusRestApi {
 
     private static ModuleBusiness moduleBusiness = new ModuleBusiness();
 
