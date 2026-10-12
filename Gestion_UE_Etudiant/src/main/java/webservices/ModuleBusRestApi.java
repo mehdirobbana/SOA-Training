@@ -44,4 +44,16 @@ public class ModuleBusRestApi {
                     .build();
         }
     }
+    @GET
+    @Path("{matricule}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getModuleByMatricule(@PathParam("matricule") String matricule) {
+        Module m = moduleBusiness.getModuleByMatricule(matricule);
+        if (m == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("Module not found")
+                    .build();
+        }
+        return Response.ok(m).build();
+    }
 }
