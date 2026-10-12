@@ -1,13 +1,9 @@
-package ws;
+package webservices;   // see note below
 
 import entities.Module;
 import metiers.ModuleBusiness;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -35,7 +31,17 @@ public class ModuleBusRestApi {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllModules() {
-        return Response.ok(moduleBusiness.getAllModules()).build();
+    public Response getModules(@QueryParam("type") String type) {
+        if (type == null || type.isEmpty()) {
+            return Response.ok(moduleBusiness.getAllModules()).build();
+        }
+        try {
+            Module.TypeModule typeModule = Module.TypeModule.valueOf(type.toUpperCase());
+            return Response.ok(moduleBusiness.getModulesByType(typeModule)).build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("Invalid type. Allowed values: PROFESSIONNEL, TRANSVERSAL")
+                    .build();
+        }
     }
 }
