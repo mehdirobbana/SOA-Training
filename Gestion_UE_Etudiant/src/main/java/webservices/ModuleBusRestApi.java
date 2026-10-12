@@ -84,4 +84,10 @@ public class ModuleBusRestApi {
                 .entity("Module not found")
                 .build();
     }
+    @GET
+    @Path("all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllModules() {
+        return Response.ok(moduleBusiness.getAllModules()).build();
+    }
 }
